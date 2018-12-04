@@ -19,3 +19,14 @@ Unless required by applicable law or agreed to in writing, software# distributed
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+
+
+I am open sourcing a box and semantic encoder with codecs and trainers under the apache 2 licence.  The script and release are a little unconventional but there are several good reasons to do so.  I am releasing Annomator 0.1 Beta as a working prototype.  I will be moving towards a 1.0 release when it is more functional.  I have written the code, codecs and packaged it up to run on many different computers easily using open source tools on the most amount of computers.  
+The real focus has been on shifting the focus on annotating and gathering data to the end user.  The art of wrangling and training will no doubt be helped or handled  by someone with dedicated skills but anyone who can use a paint program and a spreadsheet can be up and running in about 10 minutes.  
+
+The requirements are just Tensorflow, PIL and matplotlib so you can skip the setup if you know what you are doing.  Jupyter is only used for instructions but have also included a little fix if you install jupyter without conda.  
+This has been done so that we can get this thing up and running but am happy to change, take down or remove any sections if needed.  I have tried to be transparent and apply attributions where possible 
+All the guts and glory goes to Google for open sourcing Tensorflow, Slim and the Object Detection API.  I have included a slice to make the prototype run easily but this is not the recommended installation method.  Please see the official instrucions for setup and install.
+The requirements are just Tensorflow, PIL and matplotlib so you can skip the setup if you know what you are doing.  
+
+If you move the train.py file out of the legacy folder it will still work with the current version.
