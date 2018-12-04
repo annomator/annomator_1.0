@@ -4,7 +4,7 @@ Some of this package is covered under the tensorflow apache 2
 
 The rest I am putting under the apache 2 licence until further notice
 
-Copyright Annomator
+Copyright 2018 Annomator
 Written by Arend Smits
 
 Copyright 2018 The TensorFlow Authors. All Rights Reserved.
