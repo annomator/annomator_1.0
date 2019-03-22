@@ -1,36 +1,41 @@
-Annomator
+# Annomator
 
-annomator_package_beta_0.1
+### Annomator is a fully featured automatic image annotator.  
 
-First open source version of Annomator with trainer for a select few to review
-Some of this package is covered under the tensorflow apache 2
+Copyright 2019 Annomator.  Written by Arend Smits.  All Rights Reserved.  
 
-The rest I am putting under the apache 2 licence until further notice
+Copyright 2019 The TensorFlow Authors.  All Rights Reserved.
 
-Copyright 2018 Annomator
-Written by Arend Smits
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.
 
-Copyright 2018 The TensorFlow Authors. All Rights Reserved.
+Annomator is designed to detect, record and display objects found in pictures.  It comes pretrained to detect 80 objects including people, vehicles, animals, food, home, office and sports (MSCOCO 80 categories).  It was originally designed for scientific data collection but can be trained on new objects including individuals, plant or animal species, cells and can process any images including microscope, phone, drone and telescope.  It can be used to analyse drone transect data or pick out a person in a crowd.  It includes quantified and summarised data for easy input straight into office and can be interpreted visually by an untrained user.  
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+The data is stored in a number of formats including a pure image semantic encode and several codecs have been included.  It is currently the only semantic encoder known to exist.  Visual ouput can be png, jpg or pdf.  Output can also be individual and a summary text file in txt, csv or json format that include box coordinates.  These can be checked and edited and a summary file produced for export to another program.  Gimp can be used to check and edit the results.  Open Office can import into a spreadsheet or database for further analysis, removing the need for specific machine learning support.
 
-http://www.apache.org/licenses/LICENSE-2.0
+The images can be batch processed to appear like the following:
+![Compound image](setup/media/visual1.png)
 
-Unless required by applicable law or agreed to in writing, software# distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+All the above data can be derived from a single png image:
+![Codec image](setup/media/mask1.png)
 
+The output can also be summarised to a text file for import into Office:
+![Text image](setup/media/text1.png)
 
-I am open sourcing a box and semantic encoder with codecs and trainers under the apache 2 licence.  The script and release are a little unconventional but there are several good reasons to do so.  I am releasing Annomator 0.1 Beta as a working prototype.  I will be moving towards a 1.0 release when it is more functional.  I have written the code, codecs and packaged it up to run on many different computers easily using open source tools on the most amount of computers.  
-The real focus has been on shifting from annotating and gathering data to the end user.  The art of wrangling and training will no doubt be helped or handled by someone with dedicated skills but anyone who can use a paint program and a spreadsheet can be up and running quickly.  
+Images can also be annotated or 'painted' to achieve new training data.  It also includes a full panoptic codec so that background and textures can be included in the training data.  Gimp or Photoshop can be used as the image editor and instructions will be made available on each section where required.  If you want to detect new objects and have no machine learning skills, it is recommended you seek professional help.  
 
-The requirements are just Tensorflow, PIL and matplotlib so you can skip the setup if you already have them installed.  Jupyter is only used for instructions but have also included a little fix if you install jupyter without conda.  
+The workflow may include annotating the images and then labelling them for further training.  Some examples would be to annotate for people and then label them with their names.  Microscopy cells or planets could be detected as 'balls' and then annotated.  These can then be used for training.  
 
-All the credit should be given to Google for open sourcing Tensorflow, Slim and the Object Detection API.  I have included a slice to make the prototype run easily but this is not the recommended installation method.  Please see the official instrucions for setup and install.   The requirements are just Tensorflow, PIL and matplotlib so you can skip the setup if you know what you are doing.  
+###### There are too many features to list but the package contains:
+- Unique detection and annotation to a user friendly output
+- Several new codecs for semantic (per pixel) image processing
+- Ability to annotate automatically then edit or start annotating manually
+- Training modules for box or semantic encoding
+- Smart restart so that it can be stopped and started efficiently without repeating images
+- Image preprocessor for fast, efficient detections and possible training
+- Individual text and summaries for easy import into spreadsheet or database
+- All functions are available using open source programs
+- Runs on most Linux, Mac and Windows computers
 
-If you move the train.py file out of the legacy folder it will still work with the current version.
+The easiest way to get started is to pip install the requirements in the setup folder.  No other files are required to run Annomator.  Annomator has been tested on Linux, Mac and Windows and uses Tensorflow 1.5.0 and Tensorflow Slim at its core.  The install will use these but you are invited to try the official install instruction and your current version of Tensorflow.  It is compatible with Python 2.7 to 3.7 and tested up to Tensorflow 1.10.  Note you will need to move the train.py file out of the legacy folder if using the latest official install.  The only required installs are Tensorflow, PIL and Matplotlib.  Jupyter is only used for instructions so is useful but not necessary.  A virtual environment is recommended but not necessary.
 
-I have not put full attributions but the package, the image detection and the semantic enocoder and the codecs are novel and under the apache 2 licence but I would like to apply full attribution.  This version also right of response to give full atribution.
+We are always seeking to make Annomator better.  Please send feedback to annomator@gmail.com and let us know if you found the package useful and how it was used.  If you have machine learning skills and are familiar with Annomator, please let us know as we are still seeking consultants for most universities and other commercial applications.  Tensorflow, Tensorflow Slim, Tensorflow Object Detection, Annomator and the associated codecs are all protected under the Apache 2 licence.  Please contact annomator@gmail.com for commercial use.  
