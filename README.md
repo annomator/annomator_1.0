@@ -10,7 +10,7 @@ Licensed under the Apache License, Version 2.0 (the "License"); you may not use 
 
 Annomator is designed to detect, record and display objects found in pictures.  It comes pretrained to detect 80 objects including people, vehicles, animals, food, home, office and sports (MSCOCO 80 categories).  It was originally designed for scientific data collection but can be trained on new objects including individuals, plant or animal species, cells and can process any images including microscope, phone, drone and telescope.  It can be used to analyse drone transect data or pick out a person in a crowd.  It includes quantified and summarised data for easy input straight into office and can be interpreted visually by an untrained user.  
 
-The data is stored in a number of formats including a pure image semantic encode and several codecs have been included.  It is currently the only semantic encoder known to exist.  Visual ouput can be png, jpg or pdf.  Output can also be individual and a summary text file in txt, csv or json format that include box coordinates.  These can be checked and edited and a summary file produced for export to another program.  Gimp can be used to check and edit the results.  Open Office can import into a spreadsheet or database for further analysis, removing the need for specific machine learning support.
+The data is stored in a number of formats including a pure image semantic encode and several codecs have been included.  It is currently the only semantic encoder known to exist.  Visual ouput can be png, jpg or pdf.  Output can also be individual and a summary text file in txt, csv or json format that include box coordinates.  These can be checked and edited and a summary file produced for export to another program.  Gimp or Photoshop can be used to check and edit the results.  Open Office can import into a spreadsheet or database for further analysis, removing the need for specific machine learning support.
 
 The images can be batch processed to appear like the following:
 ![Compound image](setup/media/visual1.png)
@@ -35,6 +35,7 @@ The workflow may include annotating the images and then labelling them for furth
 - Individual text and summaries for easy import into spreadsheet or database
 - All functions are available using open source programs
 - Runs on most Linux, Mac and Windows computers
+- Setup for GPU or CPU only
 
 The easiest way to get started is to pip install the requirements in the setup folder.  No other files are required to run Annomator.  Annomator has been tested on Linux, Mac and Windows and uses Tensorflow 1.5.0 and Tensorflow Slim at its core.  The install will use these but you are invited to try the official install instruction and your current version of Tensorflow.  It is compatible with Python 2.7 to 3.7 and tested up to Tensorflow 1.10.  Note you will need to move the train.py file out of the legacy folder if using the latest official install.  The only required installs are Tensorflow, PIL and Matplotlib.  Jupyter is only used for instructions so is useful but not necessary.  A virtual environment is recommended but not necessary.
 
