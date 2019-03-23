@@ -1,95 +1,3 @@
-
-# coding: utf-8
-#from __future__ import print_function # Python 2.7
-#from __future__ import division
-"""
-Mission Objective:
-Make it easy for Windows, Mac or Linux users to run Mask RCNN
-
-Target Audiences:
-Researchers: Image to text - classify and count
-Personal use: Image to text - classify contents using 80 labels
-You can then search for things like people, car, dog, boat directly to be able to search for text photos of interest
-Small business: stock-take to staff management - mrcnn can do it all
-Photo and Video professionals: Apart from the ability to look through all photos or video for descriptions (shot list or rushes list), colorizing, special effects and green screen are all possible with a little tweaking.
-Big business: not for you... well... if your motto is 'do some good' then you should know tensorflow runs everything from amazon robots to 'ok google'.  
-
-Remove the need to compile
-"""
-
-# # Welcome to Masking for All
-# ### A cross-platform version of Tensorflow Object Detection
-# ### The fastest and lightest version of Mask RCNN - InceptionV2 - setup and ready to start detecting
-# 
-# If you think linux may be a cross between a lion and a lynx, that python and anaconda are snakes,
-# If you have never compiled anything, this is for you.  This is written primarily for Windows and Mac with no prior AI or ML experience.  
-# imho, this shit is the new 0,0,0
-# It is designed for easy end-user encoding
-# A designer can choose from a broad spectrum of colors
-# A researcher can code precisely which, how much, where in instance is
-# All this 'head-maths' is automated in the encoder but designed for humans
-# Simply red is category id, green is instance count and blue is category count
-# These are encoded 100 + 10*count  (110, 120, 130)
-# This keeps the colors produced visibly separate
-# - 0 on 1 binaries are black on near black
-# - coding around 128+ is all grey
-# - oscilating out limited count to 127 but works ok for panoptic
-# - working in negative, binary multiplication, all too hard
-# - the head-maths, explanation and training would not work
-
-# The bottom line is it was way
-# But doesn't that leave a count of 10? 25, at best?  No.
-# Without straying into distracting / loud colors ?
-# - coding where 100 is 0, where 110 is 1 and 209 is 0.
-# - Easy head-maths? Easy for most cases as can read number backwards
-# - Could always use a color chart for use with dropper but last resort
-# The encode is simple for the first 15: 100 + 10*count
-# encode 1-10: 1-110, 2-120, 3-130 ... 9-190, 10-101
-# You could decode simply with count = (color - 100) / 10
-# This would not suit some tasks as 100 should be seen as entirely possible
-# The formula is fairly easy to learn, calculate and infer directly from code
-# I know that red 129, green 110, blue 120 is the first person of two objects
-# That is 128+coco(1), (the middle number), (the middle number)
-# You can't avoid noticing if it has a 1 or 2 to the left, and a 0, 1, 2 to the right
-# The formula becomes more complicated at the back end...
-# (python % the remainder,  // no remainder)
-# encode count = 100 + ((10*count) % 99) 
-# decode count =((color % 10)*10) + ((color - 100) // 10) 
-# encode 9-190, 10-101, 11-111, 12-121, 3-131 ... 19-191, 20-102
-### Gives a range of 0-98, 99 total, without getting more complicated
-### Just ignore the 1 (would start in black otherwise)
-### the number is now just backwards 191 becomes 19. easy peasy maskineasy!
-# You can then alter the mask.  Scrub, add and alter easily!!!
-# You can even just start with a copy of a pic and start masking
-# Red has been reserved for categories
-# - 128+ for objects, 128- for environment
-# This is also new but works well with coco panoptic
-# A zero index for coco category ends up with dark objects, red sky etc
-# If start at 128 and go out (I am calling mapped split index)
-# - Ideally, if no category index already exists for mapping...
-# - map supercategories directly to red scheme at stepped increments
-# - The absence of red, given neutral green, gives blue
-# - - ie objects will be increasingly red, background will increasingly blue
-# - A simple version is indoor objects mapped 129-192, outdoor mapped 193-255
-# - This leaves us with 63 slots for each... too hard
-# - A simpler version is just to map to 100+
-# - - gives a better range of colors as dips below 128 and ranges to 'not gaudy'
-# - - this would allow for 10 slots for people, 130 animals, 120 for vehicles, 
-# The best color scheme can be produced using a coded color chart
-# I have created one that puts a spectrum of blue (instance count)
-# - on top of an oscilating count of green
-# - This gives every category a good color range to choose from
-# - 
-# use a color chart to code 
-# aka easy encoder
-# aka Mighty Mini Masker
-# aka Masky McMask Mask or Masky Mask or Masky McMask Face
-
-# Suggested workflow
-# 1 auto-annotate
-# 2 Visually check, correct and improve
-# 3 Train using condensed mask or export to binary format
-
 # Python 2.7
 from __future__ import absolute_import
 from __future__ import division
@@ -101,10 +9,8 @@ print("Loading modules...")
 #start_time = dt.now()
 import time
 
-
 # Import first to prevent warning messages
 import matplotlib; matplotlib.use('Agg')  # pylint: disable=multiple-statements
-
 
 import os # for os file paths
 
@@ -137,26 +43,6 @@ import image_utils
 import tf_detections
 import png_masks
 from gen_functions import time_seconds_format as tsf
-
-
-# The tf_slim folder is a copy of tf slim with object_detection within
-# tf_slim
-# - deployment
-# - nets etc
-# - object detection
-# Not all are needed but easy to replicate when tf slim or object changes
-# You can also just copy the tf_slim folder and run scripts within
-# Any folder structure that works for you is ok, just ensure sys.path.append to tf slim
-
-# A copy of necessary files from object_detection so demo works
-# see tensorflow/research/object_detection for full code
-
-# Object detection files
-##########from object_detection.utils import ops as utils_ops
-##########from object_detection.utils import visualization_utils as vis_util
-
-#python -V
-#print("Tensorflow", tf.__version__)
 
 
 # 'http://download.tensorflow.org/models/object_detection/'
@@ -198,24 +84,6 @@ RESIZE_IMAGE_X = 512
 RESIZE_IMAGE_Y = RESIZE_IMAGE_X
 
 
-#CREATE_BLEND_IMAGE = False # Changed to visual
-
-
-# Too keep visual image size down use VISUAL_MAX to cap the size
-# To enlarge or make all visuals the same size, use VISUAL_MIN = VISUAL_MAX
-# If you 
-# It will also adjust text size for better viewing depending on the source images
-
-
-
-# The png condensed mask will be made.  Choose which extra files to create.
-# Although mask pngs are small, large images will create large visual files.
-# The visual setting will not effect the mask or the detection.
-# It can be used to dramatically save disk space
-# - but doesn't dramatically change speed unless extreme.
-# They are purely used to see the result in a way that works for the dataset/setup/you
-# They can also be remade from the mask on the next execution so write notes or delete at will.
-# Hell... it's the only place you can have some artistic licence so go nuts.
 CREATE_VISUAL_IMAGE = True # From Tensorflow Object Detection
 VISUAL_BLEND = 0.5 # Mask visibility
 # Proportion option.  Overides visual min/max if >0. 
