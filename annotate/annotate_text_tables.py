@@ -29,7 +29,6 @@ from PIL import Image # for image import
 
 import sys
 ANNO_REPO_DIR = os.path.join('..', 'anno_repo')
-# prev sys.path.append('../', 'anno_repo')
 sys.path.append(ANNO_REPO_DIR)
 import category_names
 category_index = category_names.category_index
@@ -110,10 +109,6 @@ with detection_graph.as_default():
                             line = line.strip()
                             image_summary.append(line) # + "\n" # string format
                 continue # skip to next image
-            # ORIG output_dict = run_inference_for_single_image(image_np, detection_graph)
-            # PREV image = Image.open(image_path)
-            # PREV image_np = load_image_into_numpy_array(image)
-            # PREV output_dict = detect_numpy_for_boxes_session(image_np, session)
             image, output_dict = tf_detections.detect_filepath_for_boxes_session(
                 image_path, session)
             
@@ -147,20 +142,12 @@ with detection_graph.as_default():
                 instances.append(instance_text) # array
                 
                 if CREATE_VISUAL_IMAGE:
-                    # Box
-                    #l, r, t, b = box[1] * imgX, box[3] * imgX, box[0] * imgY, box[2] * imgY
-                    #draw.line([(l, t), (l, b), (r, b), (r, t), (l, t)], width=2, fill='gray')
-                    # Label
-                    # prev box_label = str(instance_count) +" "+ class_name +" "+ str(cat_count[class_id])
                     label = str(instance_count) +" "+ class_name +" "+ str(cat_count[class_id])
-                    #draw.text((l, t), box_label)
-                    # or
                     draw = image_utils.draw_box_and_label_on_image(image, draw, box, label)
             # If no instances met criteria, ie nothing found, return a valid count of 0
             if instance_count == 0:
                 instance_text = "{},{}".format(test_image, 0)
                 instances.append(instance_text)
-            #instance_lines = "\n".join(instances) # array to string
             # Save image text
             image_text_formatted = "ImageName,InstanceId,ClassId,ClassName,ClassCount,Score,Box\n"
             image_text_formatted += "\n".join(instances) # array to string

@@ -139,19 +139,12 @@ with detection_graph.as_default():
                 instances.append(json_instance)
                 
                 if CREATE_VISUAL_IMAGE:
-                    # Simple box and label - see masker for alternate visual
-                    #l, r, t, b = box[1] * imgX, box[3] * imgX, box[0] * imgY, box[2] * imgY
-                    #draw.line([(l, t), (l, b), (r, b), (r, t), (l, t)], width=2, fill='gray') # color name...
-                    #box_label = str(instance_count) +" "+ str(class_name) +" "+ str(cat_count_list[class_id])
-                    #draw.text((l, t), box_label, fill=(255,255,255)) # ...or color rgb
-
                     label = str(instance_count) +" "+ str(class_name) +" "+ str(cat_count_list[class_id])
                     draw = image_utils.draw_box_and_label_on_image(image, draw, box, label)
                   
             # If no instances met criteria, ie nothing found, return a valid count of 0
             if instance_count == 0:
                 instances.append({'instance_id': 0}) # nothing found in image
-            # prev json_image = {'image': test_image, 'instances': instances}
             json_image = {'image': test_image, 'width': imgX, 'height': imgY, 'instances': instances}
             images.append(json_image)
             with open(json_path, 'w') as f:
@@ -163,14 +156,10 @@ with detection_graph.as_default():
                     visual_file = image_name + "_visual" + VISUAL_FORMAT 
                 image.save(os.path.join(OUTPUT_DIR, visual_file))
 
-              
             # Display detections of each image to screen
             plt.close('all')
             if DISPLAY_TO_SCREEN:
                 print(json_image)
-            #image_time = time.time() - image_start
-            #m, s = divmod(image_time, 60)
-            #image_time_format = "{:0.0f} minutes {:0.3f} seconds".format(m, s)
             print(image_count, test_image, '-', tsf(time.time() - image_start))
 
 # Write json summary

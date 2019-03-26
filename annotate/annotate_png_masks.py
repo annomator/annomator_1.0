@@ -14,7 +14,7 @@ import matplotlib; matplotlib.use('Agg')  # pylint: disable=multiple-statements
 
 import os # for os file paths
 
-#os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+#os.environ["CUDA_VISIBLE_DEVICES"] = "-1" # To turn off GPU
 
 import numpy as np # for arrays and data manipulation
 #import six.moves.urllib as urllib # for downloading
@@ -34,9 +34,7 @@ import sys
 ANNO_REPO_DIR = os.path.join('..', 'anno_repo')
 sys.path.append(ANNO_REPO_DIR)
 
-#import default_category_names
-#category_index = default_category_names
-# or
+
 import category_names # contains category_index
 category_index = category_names.category_index
 import image_utils
@@ -48,10 +46,6 @@ from gen_functions import time_seconds_format as tsf
 # 'http://download.tensorflow.org/models/object_detection/'
 
 FROZEN_GRAPH = os.path.join(os.path.abspath('./'), 'frozen_graph', 'frozen_inference_graph.pb')
-
-# ORIG - List of the strings that is used to add correct label for each box.
-#PATH_TO_LABELS = os.path.join('data', 'mscoco_label_map.pbtxt')
-#NUM_CLASSES = 90
 
 
 TEST_IMAGES = os.path.join(os.path.abspath('./'), 'test_images')
@@ -101,10 +95,6 @@ VISUAL_MIN = VISUAL_MAX # pixels # Default 0 (off), number=enlarge or VISUAL_MAX
 # Searchable labels by score rank order with no external text or json needed. ("aza out" mike drop).  
 CREATE_BINARY_IMAGES = False
 BINARY_IMAGES_DIR = os.path.join('.', 'binary_masks')
-#BINARY_IMAGES_DIR = os.path.join(OUTPUT_DIR, "_binary_masks")
-#BINARY_IMAGES_DIR = os.path.join(COCO_2017_DIR, "_binary_masks")
-
-
 
 
 ################################################
@@ -138,8 +128,6 @@ complete_count = 0
 image_count = 0
 image_dicts = []
 for test_image in test_images:
-    #image_start = dt.now()
-    #image_start = time.time()
     image_dict = {}
     image_path = os.path.join(TEST_IMAGES, test_image)
     image_name, ext = os.path.splitext(test_image)
@@ -212,7 +200,6 @@ with detection_graph.as_default():
         for image_dict in image_dicts:
             if image_dict['image_complete']:
                 continue
-            #image_start_time = dt.now()
             image_start = time.time()
             #print("Processing", image_dict['image_name'])
             image = Image.open(image_dict['image_path'])
