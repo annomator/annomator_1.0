@@ -29,7 +29,6 @@ The workflow may include annotating the images and then labelling them for furth
 - Unique detection and annotation to a user friendly output
 - Several new codecs for semantic (per pixel) image processing
 - Ability to annotate automatically then edit or start annotating manually
-- Training modules for box or semantic encoding
 - Smart restart so that it can be stopped and started efficiently without repeating images
 - Image preprocessor for fast, efficient detections and possible training
 - Individual text and summaries for easy import into spreadsheet or database
@@ -37,6 +36,6 @@ The workflow may include annotating the images and then labelling them for furth
 - Runs on most Linux, Mac and Windows computers
 - Setup for GPU or CPU only
 
-The easiest way to get started is to pip install the requirements in the setup folder.  No other files are required to run Annomator.  Annomator has been tested on Linux, Mac and Windows and uses Tensorflow 1.5.0 and Tensorflow Slim at its core.  The install will use these but you are invited to try the official install instruction and your current version of Tensorflow.  It is compatible with Python 2.7 to 3.7 and tested up to Tensorflow 1.10.  Note you will need to move the train.py file out of the legacy folder if using the latest official install.  The only required installs are Tensorflow, PIL and Matplotlib.  Jupyter is only used for instructions so is useful but not necessary.  A virtual environment is recommended but not necessary.
+The easiest way to get started is to pip install the requirements in the setup folder.  No other files are required to run Annomator.  Annomator has been tested on Linux, Mac and Windows and uses Tensorflow 1.5.0 and Tensorflow Slim at its core.  The install will use these but you are invited to try the official install instruction and your current version of Tensorflow.  It is compatible with Python 2.7 to 3.6 and tested up to Tensorflow 1.10.  Note you will need to move the train.py file out of the legacy folder if using the latest official install.  The only required installs are Tensorflow, PIL and Matplotlib.  Jupyter is only used for instructions so is useful but not necessary.  A virtual environment is recommended but not necessary.
 
 We are always seeking to make Annomator better.  Please send feedback to annomator@gmail.com and let us know if you found the package useful and how it was used.  If you have machine learning skills and are familiar with Annomator, please let us know as we are still seeking consultants for most universities and other commercial applications.  Tensorflow, Tensorflow Slim, Tensorflow Object Detection, Annomator and the associated codecs are all protected under the Apache 2 licence.  Please contact annomator@gmail.com for commercial use.  

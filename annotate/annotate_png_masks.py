@@ -49,12 +49,8 @@ FROZEN_GRAPH = os.path.join(os.path.abspath('./'), 'frozen_graph', 'frozen_infer
 
 
 TEST_IMAGES = os.path.join(os.path.abspath('./'), 'test_images')
-COCO_2017_DIR = os.path.join('../', '../', 'MSCOCO_2017_PANOPTIC')
-#TEST_IMAGES = os.path.join(COCO_2017_DIR, 'train2017')
 OUTPUT_DIR = os.path.join(os.path.abspath('./'), 'output_masks')
-#OUTPUT_DIR = os.path.join(COCO_2017_DIR, 'png_metric_100_train2017')
 BINARY_IMAGES_DIR = os.path.join(OUTPUT_DIR, "_binary_masks")
-#BINARY_IMAGES_DIR = os.path.join(COCO_2017_DIR, "png_binary_train2017")
 
 CONFIDENCE = 0.75
 MAX_OBJECTS = 100
