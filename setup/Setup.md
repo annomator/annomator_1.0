@@ -43,6 +43,8 @@ Annotating is setup for MSCOCO - see Demo
 I recommend using the following open source programs
 Gimp to annotate masks xnview for batching images VLC to turn video into images
 
+### For Annomator Pro
+
 If you want to train boxes or train masks you may need to protoc and PYTHONPATH
 This is also needed for pbtxt, and therefore other models
 
