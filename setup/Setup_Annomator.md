@@ -16,8 +16,8 @@ Works with Python 2.7 and 3.3-3.6 (Not 3.7)
 It is recommended to use virtualenv
 Works as system/native, conda, virtualenv or pipenv
 
-It is recommended to use Tensorflow 1.5.0 and TF Object Detection 1.0 BEFORE September 2018
-Works with 1.5.0 - 1.10 (Not 1.11)
+It is recommended to use Tensorflow 1.5.0.  Works with 1.5.0 - 1.10 (Not 1.11)
+Works with TF Object Detection 1.0 BEFORE September 2018.  You simply need to move the train.py out of the legacy folder with later releases.
 
 Download Python 3.6 and update to pip 18
 Create/activate the virtual environment
@@ -34,32 +34,17 @@ annomator_requirements.txt and annomator_requirements_gpu.txt are the result
 Windows - You may get an error msvcp140.dll
 Download the Visual C++ 2015 Redistributable Update 3
 
-Download annomator from github
+Download/Clone annomator from github
 https://github.com/annomator
+
 
 ### Install complete for most end-users
 
 Annotating is setup for MSCOCO - see Demo
-I recommend using the following open source programs
-Gimp to annotate masks xnview for batching images VLC to turn video into images
 
-### For Annomator Pro
+I recommend using the following open source programs:
+Gimp to annotate masks
+xnview for batch processing images 
+VLC to turn video into images
+Open Office for data analysis
 
-If you want to train boxes or train masks you may need to protoc and PYTHONPATH
-This is also needed for pbtxt, and therefore other models
-
-I have included a coco category_index for the annotator
-You can do the same for other models or your own data
-
-Protoc
-If Windows and protobuf 3.6.1 you are already done installing as pre-proprocessed - skip to PYTHONPATH
-
-The linux and mac install is much simpler as since 3.5+ else forced to script or do individually
-
-Protoc Download
-https://github.com/protocolbuffers/protobuf/releases/tag/v3.6.1
-
-PYTHONPATH
-This can be setup permanently using bash file or windows environment. You can just run the following in each terminal session:
-
-Linux/Mac - cd to the 'annomator' folder export PYTHONPATH=$PYTHONPATH:pwd:pwd/tf_slim_obj_det Windows - no need to cd. Just change absolute path to your tf_slim_obj_det folder set PYTHONPATH=%PYTHONPATH%;C:\path_to\tf_slim_obj_det
