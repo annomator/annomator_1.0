@@ -21,9 +21,9 @@ Works with TF Object Detection 1.0 BEFORE September 2018.  You simply need to mo
 
 Download Python 3.6 and update to pip 18  
 Create/activate the virtual environment  
-pip install jupyter==6.4 # latest (7.0.1 bug is still active)   
+pip install jupyter
 pip install pillow==5.0.0 # some OS issues still exist with later versions  
-pip install matplotlib # latest and only - I will lock down a version if needed  
+pip install matplotlib
 pip install tensorflow==1.5.0 # or pip install tensorflow-gpu==1.5.0  
 
 I have later added this to ensure both 1.5.0 and 1.10.0 will work for most  
