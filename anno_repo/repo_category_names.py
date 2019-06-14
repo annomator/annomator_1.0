@@ -6,116 +6,26 @@
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
 # either express or implied. See the License for the specific language governing permissions and limitations under the License.
-### To load using installed version and data/mscoco_label_map.pbtxt
-### You may also need to download protoc for your platform
+
+
+### To load using installed version and data/mscoco_label_map.pbtxt, 
+### you would also need to download protoc for your platform.  You
+### can use the following versions instead.
 
 # Coco Category Index
-# - from visualization_utils.py in utils
+# From visualization_utils.py in utils
 # - category_index: a dict containing category dictionaries (each holding
 # - category index `id` and category name `name`) keyed by category indices.
-# "Here we use internal utility functions, but anything that returns
-# a dictionary mapping integers to appropriate string labels would be fine"
+# - "Here we use internal utility functions, but anything that returns
+# - a dictionary mapping integers to appropriate string labels would be fine"
 
-# MSCOCO to category index - debug inference
-# Added "NOT USED" 12, 26, 29, 30, 45, 66, 68, 69, 71, 83
-category_index_inference_debug_only = {
-    1:{'name': "person"}, 
-    2:{'name': "bicycle"}, 
-    3:{'name': "car"}, 
-    4:{'name': "motorcycle"}, 
-    5:{'name': "airplane"}, 
-    6:{'name': "bus"}, 
-    7:{'name': "train"}, 
-    8:{'name': "truck"}, 
-    9:{'name': "boat"}, 
-    10:{'name': "traffic light"}, 
-    11:{'name': "fire hydrant"},
-    12:{'name': "NOT USED"}, 
-    13:{'name': "stop sign"}, 
-    14:{'name': "parking meter"}, 
-    15:{'name': "bench"}, 
-    16:{'name': "bird"}, 
-    17:{'name': "cat"}, 
-    18:{'name': "dog"}, 
-    19:{'name': "horse"}, 
-    20:{'name': "sheep"}, 
-    21:{'name': "cow"}, 
-    22:{'name': "elephant"}, 
-    23:{'name': "bear"}, 
-    24:{'name': "zebra"}, 
-    25:{'name': "giraffe"},
-    26:{'name': "NOT USED"}, 
-    27:{'name': "backpack"}, 
-    28:{'name': "umbrella"},
-    29:{'name': "NOT USED"},
-    30:{'name': "NOT USED"}, 
-    31:{'name': "handbag"}, 
-    32:{'name': "tie"}, 
-    33:{'name': "suitcase"}, 
-    34:{'name': "frisbee"}, 
-    35:{'name': "skis"}, 
-    36:{'name': "snowboard"}, 
-    37:{'name': "sports ball"}, 
-    38:{'name': "kite"}, 
-    39:{'name': "baseball bat"}, 
-    40:{'name': "baseball glove"}, 
-    41:{'name': "skateboard"}, 
-    42:{'name': "surfboard"}, 
-    43:{'name': "tennis racket"}, 
-    44:{'name': "bottle"},
-    45:{'name': "NOT USED"}, 
-    46:{'name': "wine glass"}, 
-    47:{'name': "cup"}, 
-    48:{'name': "fork"}, 
-    49:{'name': "knife"}, 
-    50:{'name': "spoon"}, 
-    51:{'name': "bowl"}, 
-    52:{'name': "banana"}, 
-    53:{'name': "apple"}, 
-    54:{'name': "sandwich"}, 
-    55:{'name': "orange"}, 
-    56:{'name': "broccoli"}, 
-    57:{'name': "carrot"}, 
-    58:{'name': "hot dog"}, 
-    59:{'name': "pizza"}, 
-    60:{'name': "donut"}, 
-    61:{'name': "cake"}, 
-    62:{'name': "chair"}, 
-    63:{'name': "couch"}, 
-    64:{'name': "potted plant"}, 
-    65:{'name': "bed"},
-    66:{'name': "NOT USED"}, 
-    67:{'name': "dining table"},
-    68:{'name': "NOT USED"}, 
-    69:{'name': "NOT USED"}, 
-    70:{'name': "toilet"},
-    71:{'name': "NOT USED"}, 
-    72:{'name': "tv"},
-    73:{'name': "laptop"}, 
-    74:{'name': "mouse"}, 
-    75:{'name': "remote"}, 
-    76:{'name': "keyboard"}, 
-    77:{'name': "cell phone"}, 
-    78:{'name': "microwave"}, 
-    79:{'name': "oven"}, 
-    80:{'name': "toaster"}, 
-    81:{'name': "sink"}, 
-    82:{'name': "refrigerator"},
-    83:{'name': "NOT USED"}, 
-    84:{'name': "book"}, 
-    85:{'name': "clock"}, 
-    86:{'name': "vase"}, 
-    87:{'name': "scissors"}, 
-    88:{'name': "teddy bear"}, 
-    89:{'name': "hair drier"}, 
-    90:{'name': "toothbrush"}}
 
 # Raw output from using tf labelmap util mscoco_label_map.txt
 # ref from object_detection.utils import label_map_util
 # ref label_map = label_map_util.load_labelmap(PATH_TO_LABELS)
 # ref categories = label_map_util.convert_label_map_to_categories(label_map, max_num_classes=NUM_CLASSES, use_display_name=True)
 # ref category_index = label_map_util.create_category_index(categories)
-mscoco_category_index = {
+mscoco_category_index_original = {
     1: {'id': 1, 'name': 'person'},
     2: {'id': 2, 'name': 'bicycle'},
     3: {'id': 3, 'name': 'car'},
@@ -196,6 +106,91 @@ mscoco_category_index = {
     88: {'id': 88, 'name': 'teddy bear'},
     89: {'id': 89, 'name': 'hair drier'},
     90: {'id': 90, 'name': 'toothbrush'}}
+
+
+# Added display_name.  Only effects visual image (if display_name else name)
+mscoco_category_index_display = {
+    1: {'id': 1, 'name': 'person', 'display_name': 'Person'},
+    2: {'id': 2, 'name': 'bicycle', 'display_name': 'Bike'},
+    3: {'id': 3, 'name': 'car', 'display_name': 'Car'},
+    4: {'id': 4, 'name': 'motorcycle', 'display_name': 'Motorbike'},
+    5: {'id': 5, 'name': 'airplane', 'display_name': 'Plane'},
+    6: {'id': 6, 'name': 'bus', 'display_name': 'Bus'},
+    7: {'id': 7, 'name': 'train', 'display_name': 'Train'},
+    8: {'id': 8, 'name': 'truck', 'display_name': 'Truck'},
+    9: {'id': 9, 'name': 'boat', 'display_name': 'Boat'},
+    10: {'id': 10, 'name': 'traffic light', 'display_name': 'Traffic Light'},
+    11: {'id': 11, 'name': 'fire hydrant', 'display_name': 'Fire Hydrant'},
+    13: {'id': 13, 'name': 'stop sign', 'display_name': 'Stop Sign'},
+    14: {'id': 14, 'name': 'parking meter', 'display_name': 'Parking Meter'},
+    15: {'id': 15, 'name': 'bench', 'display_name': 'Bench'},
+    16: {'id': 16, 'name': 'bird', 'display_name': 'Bird'},
+    17: {'id': 17, 'name': 'cat', 'display_name': 'Cat'},
+    18: {'id': 18, 'name': 'dog', 'display_name': 'Dog'},
+    19: {'id': 19, 'name': 'horse', 'display_name': 'Horse'},
+    20: {'id': 20, 'name': 'sheep', 'display_name': 'Sheep'},
+    21: {'id': 21, 'name': 'cow', 'display_name': 'Cow'},
+    22: {'id': 22, 'name': 'elephant', 'display_name': 'Elephant'}, 
+    23: {'id': 23, 'name': 'bear', 'display_name': 'Bear'}, 
+    24: {'id': 24, 'name': 'zebra', 'display_name': 'Zebra'}, 
+    25: {'id': 25, 'name': 'giraffe', 'display_name': 'Giraffe'}, 
+    27: {'id': 27, 'name': 'backpack', 'display_name': 'Backpack'},
+    28: {'id': 28, 'name': 'umbrella', 'display_name': 'Umbrella'},
+    31: {'id': 31, 'name': 'handbag', 'display_name': 'Handbag'},
+    32: {'id': 32, 'name': 'tie', 'display_name': 'Tie'},
+    33: {'id': 33, 'name': 'suitcase', 'display_name': 'Suitcase'},
+    34: {'id': 34, 'name': 'frisbee', 'display_name': 'Frisbee'},
+    35: {'id': 35, 'name': 'skis', 'display_name': 'Skis'},
+    36: {'id': 36, 'name': 'snowboard', 'display_name': 'Snowboard'},
+    37: {'id': 37, 'name': 'sports ball', 'display_name': 'Ball'},
+    38: {'id': 38, 'name': 'kite', 'display_name': 'Kite'},
+    39: {'id': 39, 'name': 'baseball bat', 'display_name': 'Bat'},
+    40: {'id': 40, 'name': 'baseball glove', 'display_name': 'Glove'},
+    41: {'id': 41, 'name': 'skateboard', 'display_name': 'Skateboard'},
+    42: {'id': 42, 'name': 'surfboard', 'display_name': 'Surfboard'},
+    43: {'id': 43, 'name': 'tennis racket', 'display_name': 'Racket'},
+    44: {'id': 44, 'name': 'bottle', 'display_name': 'Bottle'},
+    46: {'id': 46, 'name': 'wine glass', 'display_name': 'Glass'},
+    47: {'id': 47, 'name': 'cup', 'display_name': 'Cup'},
+    48: {'id': 48, 'name': 'fork', 'display_name': 'Fork'},
+    49: {'id': 49, 'name': 'knife', 'display_name': 'Knife'},
+    50: {'id': 50, 'name': 'spoon', 'display_name': 'Spoon'},
+    51: {'id': 51, 'name': 'bowl', 'display_name': 'Bowl'},
+    52: {'id': 52, 'name': 'banana', 'display_name': 'Banana'},
+    53: {'id': 53, 'name': 'apple', 'display_name': 'Apple'},
+    54: {'id': 54, 'name': 'sandwich', 'display_name': 'Sandwich'},
+    55: {'id': 55, 'name': 'orange', 'display_name': 'Orange'},
+    56: {'id': 56, 'name': 'broccoli', 'display_name': 'Broccoli'},
+    57: {'id': 57, 'name': 'carrot', 'display_name': 'Carrot'},
+    58: {'id': 58, 'name': 'hot dog', 'display_name': 'Hotdog'},
+    59: {'id': 59, 'name': 'pizza', 'display_name': 'Pizza'},
+    60: {'id': 60, 'name': 'donut', 'display_name': 'Donut'},
+    61: {'id': 61, 'name': 'cake', 'display_name': 'Cake'},
+    62: {'id': 62, 'name': 'chair', 'display_name': 'Chair'},
+    63: {'id': 63, 'name': 'couch', 'display_name': 'Couch'},
+    64: {'id': 64, 'name': 'potted plant', 'display_name': 'Plant'},
+    65: {'id': 65, 'name': 'bed', 'display_name': 'Bed'},
+    67: {'id': 67, 'name': 'dining table', 'display_name': 'Table'},
+    70: {'id': 70, 'name': 'toilet', 'display_name': 'Toilet'},
+    72: {'id': 72, 'name': 'tv', 'display_name': 'TV'},
+    73: {'id': 73, 'name': 'laptop', 'display_name': 'Laptop'},
+    74: {'id': 74, 'name': 'mouse', 'display_name': 'Mouse'},
+    75: {'id': 75, 'name': 'remote', 'display_name': 'Remote'},
+    76: {'id': 76, 'name': 'keyboard', 'display_name': 'Keyboard'},
+    77: {'id': 77, 'name': 'cell phone', 'display_name': 'Phone'},
+    78: {'id': 78, 'name': 'microwave', 'display_name': 'Microwave'},
+    79: {'id': 79, 'name': 'oven', 'display_name': 'Oven'},
+    80: {'id': 80, 'name': 'toaster', 'display_name': 'Toaster'},
+    81: {'id': 81, 'name': 'sink', 'display_name': 'Sink'},
+    82: {'id': 82, 'name': 'refrigerator', 'display_name': 'Fridge'},
+    84: {'id': 84, 'name': 'book', 'display_name': 'Book'},
+    85: {'id': 85, 'name': 'clock', 'display_name': 'Clock'},
+    86: {'id': 86, 'name': 'vase', 'display_name': 'Vase'},
+    87: {'id': 87, 'name': 'scissors', 'display_name': 'Scissors'},
+    88: {'id': 88, 'name': 'teddy bear', 'display_name': 'Teddy Bear'},
+    89: {'id': 89, 'name': 'hair drier', 'display_name': 'Hair Drier'},
+    90: {'id': 90, 'name': 'toothbrush', 'display_name': 'Toothbrush'}}
+
 
 # From json file in mscoco panoptic coco api
 # Color is not used but could store a preferred color for a category
@@ -334,102 +329,4 @@ mscoco_panoptic_category_index = {
     199:{"supercategory": "wall", "color": [102, 102, 156], "isthing": 0, "id": 199, "name": "wall-other-merged"}, 
     200:{"supercategory": "textile", "color": [250, 141, 255], "isthing": 0, "id": 200, "name": "rug-merged"}}
 
-# My preferred category index
-# COCO (90 id) (80 count) 'Things' / Objects
-# Added display_name.  Only effects visual image (if display_name else name)
-# International/Context Spelling or Capitalize (ise)
-# tennis racket to Racket - also include correctly squash and badmiton???
-# sports ball loses nothing as also no other balls
-# baseball bat (and glove) correctly with softball, chance of cricket etc
-# wine glass to Glass is gray (grey) area as it losses descriptor
-# traffic light, stop sign, parking meter would need to be kept long
-# Most of the time having 'unlikely' things are good to check confidence
-# Other times it can be bad. eg when farm animals turn up domestically
-# - or exotic animals turn up anywhere but in a zoo.
-# Can also correct id with general name eg below # or Animal
-# This is just for the visual but can be helpful for untrained people
-# - keeps reporting cats as cows or dogs as bears etc
-# - you can hide the false positive in visual but count for stats/training
-# - Quicker / simpler solution than retraining
-my_coco_category_index = {
-    1: {'id': 1, 'name': 'person', 'display_name': 'Person'},
-    2: {'id': 2, 'name': 'bicycle', 'display_name': 'Bike'},
-    3: {'id': 3, 'name': 'car', 'display_name': 'Car'},
-    4: {'id': 4, 'name': 'motorcycle', 'display_name': 'Motorbike'},
-    5: {'id': 5, 'name': 'airplane', 'display_name': 'Plane'},
-    6: {'id': 6, 'name': 'bus', 'display_name': 'Bus'},
-    7: {'id': 7, 'name': 'train', 'display_name': 'Train'},
-    8: {'id': 8, 'name': 'truck', 'display_name': 'Truck'},
-    9: {'id': 9, 'name': 'boat', 'display_name': 'Boat'},
-    10: {'id': 10, 'name': 'traffic light', 'display_name': 'Traffic Light'},
-    11: {'id': 11, 'name': 'fire hydrant', 'display_name': 'Fire Hydrant'},
-    13: {'id': 13, 'name': 'stop sign', 'display_name': 'Stop Sign'},
-    14: {'id': 14, 'name': 'parking meter', 'display_name': 'Parking Meter'},
-    15: {'id': 15, 'name': 'bench', 'display_name': 'Bench'},
-    16: {'id': 16, 'name': 'bird', 'display_name': 'Bird'},
-    17: {'id': 17, 'name': 'cat', 'display_name': 'Cat'},
-    18: {'id': 18, 'name': 'dog', 'display_name': 'Dog'},
-    19: {'id': 19, 'name': 'horse', 'display_name': 'Horse'},
-    20: {'id': 20, 'name': 'sheep', 'display_name': 'Sheep'},
-    21: {'id': 21, 'name': 'cow', 'display_name': 'Cow'},
-    22: {'id': 22, 'name': 'elephant', 'display_name': 'Elephant'}, 
-    23: {'id': 23, 'name': 'bear', 'display_name': 'Bear'}, 
-    24: {'id': 24, 'name': 'zebra', 'display_name': 'Zebra'}, 
-    25: {'id': 25, 'name': 'giraffe', 'display_name': 'Giraffe'}, 
-    27: {'id': 27, 'name': 'backpack', 'display_name': 'Backpack'},
-    28: {'id': 28, 'name': 'umbrella', 'display_name': 'Umbrella'},
-    31: {'id': 31, 'name': 'handbag', 'display_name': 'Handbag'},
-    32: {'id': 32, 'name': 'tie', 'display_name': 'Tie'},
-    33: {'id': 33, 'name': 'suitcase', 'display_name': 'Suitcase'},
-    34: {'id': 34, 'name': 'frisbee', 'display_name': 'Frisbee'},
-    35: {'id': 35, 'name': 'skis', 'display_name': 'Skis'},
-    36: {'id': 36, 'name': 'snowboard', 'display_name': 'Snowboard'},
-    37: {'id': 37, 'name': 'sports ball', 'display_name': 'Ball'},
-    38: {'id': 38, 'name': 'kite', 'display_name': 'Kite'},
-    39: {'id': 39, 'name': 'baseball bat', 'display_name': 'Bat'},
-    40: {'id': 40, 'name': 'baseball glove', 'display_name': 'Glove'},
-    41: {'id': 41, 'name': 'skateboard', 'display_name': 'Skateboard'},
-    42: {'id': 42, 'name': 'surfboard', 'display_name': 'Surfboard'},
-    43: {'id': 43, 'name': 'tennis racket', 'display_name': 'Racket'},
-    44: {'id': 44, 'name': 'bottle', 'display_name': 'Bottle'},
-    46: {'id': 46, 'name': 'wine glass', 'display_name': 'Glass'},
-    47: {'id': 47, 'name': 'cup', 'display_name': 'Cup'},
-    48: {'id': 48, 'name': 'fork', 'display_name': 'Fork'},
-    49: {'id': 49, 'name': 'knife', 'display_name': 'Knife'},
-    50: {'id': 50, 'name': 'spoon', 'display_name': 'Spoon'},
-    51: {'id': 51, 'name': 'bowl', 'display_name': 'Bowl'},
-    52: {'id': 52, 'name': 'banana', 'display_name': 'Banana'},
-    53: {'id': 53, 'name': 'apple', 'display_name': 'Apple'},
-    54: {'id': 54, 'name': 'sandwich', 'display_name': 'Sandwich'},
-    55: {'id': 55, 'name': 'orange', 'display_name': 'Orange'},
-    56: {'id': 56, 'name': 'broccoli', 'display_name': 'Broccoli'},
-    57: {'id': 57, 'name': 'carrot', 'display_name': 'Carrot'},
-    58: {'id': 58, 'name': 'hot dog', 'display_name': 'Hotdog'},
-    59: {'id': 59, 'name': 'pizza', 'display_name': 'Pizza'},
-    60: {'id': 60, 'name': 'donut', 'display_name': 'Donut'},
-    61: {'id': 61, 'name': 'cake', 'display_name': 'Cake'},
-    62: {'id': 62, 'name': 'chair', 'display_name': 'Chair'},
-    63: {'id': 63, 'name': 'couch', 'display_name': 'Couch'},
-    64: {'id': 64, 'name': 'potted plant', 'display_name': 'Plant'},
-    65: {'id': 65, 'name': 'bed', 'display_name': 'Bed'},
-    67: {'id': 67, 'name': 'dining table', 'display_name': 'Table'},
-    70: {'id': 70, 'name': 'toilet', 'display_name': 'Toilet'},
-    72: {'id': 72, 'name': 'tv', 'display_name': 'TV'},
-    73: {'id': 73, 'name': 'laptop', 'display_name': 'Laptop'},
-    74: {'id': 74, 'name': 'mouse', 'display_name': 'Mouse'},
-    75: {'id': 75, 'name': 'remote', 'display_name': 'Remote'},
-    76: {'id': 76, 'name': 'keyboard', 'display_name': 'Keyboard'},
-    77: {'id': 77, 'name': 'cell phone', 'display_name': 'Phone'},
-    78: {'id': 78, 'name': 'microwave', 'display_name': 'Microwave'},
-    79: {'id': 79, 'name': 'oven', 'display_name': 'Oven'},
-    80: {'id': 80, 'name': 'toaster', 'display_name': 'Toaster'},
-    81: {'id': 81, 'name': 'sink', 'display_name': 'Sink'},
-    82: {'id': 82, 'name': 'refrigerator', 'display_name': 'Fridge'},
-    84: {'id': 84, 'name': 'book', 'display_name': 'Book'},
-    85: {'id': 85, 'name': 'clock', 'display_name': 'Clock'},
-    86: {'id': 86, 'name': 'vase', 'display_name': 'Vase'},
-    87: {'id': 87, 'name': 'scissors', 'display_name': 'Scissors'},
-    88: {'id': 88, 'name': 'teddy bear', 'display_name': 'Teddy Bear'},
-    89: {'id': 89, 'name': 'hair drier', 'display_name': 'Hair Drier'},
-    90: {'id': 90, 'name': 'toothbrush', 'display_name': 'Toothbrush'}}
 

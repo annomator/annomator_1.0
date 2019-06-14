@@ -7,25 +7,18 @@ print("Loading modules...")
 
 import time
 
-
 # Import first to prevent warnings
-# Can solve Mac issues with matplotlib backend (macos) TkAgg (ref)
 import matplotlib; matplotlib.use('Agg')  # pylint: disable=multiple-statements
 
 import numpy as np # for arrays and data manipulation
 import os # for os safe file paths
-#import six.moves.urllib as urllib # for downloading
 
-#import tarfile # for zip files
 import tensorflow as tf
-#import zipfile # for zip files
 
 from collections import defaultdict # text - storing
 from io import StringIO # text - translating
 from matplotlib import pyplot as plt # for image display
 from PIL import Image # for image import
-#import PIL.ImageDraw as ImageDraw # for quick box visual
-
 
 import sys
 ANNO_REPO_DIR = os.path.join('..', 'anno_repo')
@@ -37,14 +30,14 @@ tsf = gen_functions.time_seconds_format
 import image_utils
 import tf_detections
 
+# For more models
+# 'http://download.tensorflow.org/models/object_detection/'
 
 FROZEN_GRAPH = os.path.join(os.path.abspath('.'), 'frozen_graph', 'frozen_inference_graph.pb')
 
-# # Detection
 # Format for linux, windows and mac safe paths
 TEST_IMAGES = os.path.join(os.path.abspath('.'), 'test_images')
 OUTPUT_DIR = os.path.join(os.path.abspath('.'), 'ouput_text')
-
 
 TEXT_FORMAT = ".txt" # ".txt" or ".csv"
 # Rename after creation with a name meaningful to you.
@@ -52,7 +45,7 @@ SUMMARY_PATH = os.path.join(".", "Image_Summary" + TEXT_FORMAT)
 
 
 # Note for large datasets or limited space - visuals will be about same size as images
-CREATE_VISUAL_IMAGE = True # only available on detection in this version
+CREATE_VISUAL_IMAGE = True
 VISUAL_FORMAT = "image" # "image", ".png", ".jpg", ".pdf"
 # Display text results of detection to screen
 DISPLAY_TO_SCREEN = False
@@ -88,7 +81,6 @@ with detection_graph.as_default():
         image_summary = []  
         image_count = 0
         for test_image in test_images:
-            #image_start = dt.now()
             image_start = time.time()
             image_name, ext = os.path.splitext(test_image)
             if ext != ".jpg" and ext != ".png":
@@ -118,9 +110,8 @@ with detection_graph.as_default():
             instance_count = 0
             cat_count = [0] * 256 # quick array index = cat_id
             instance_total = len(output_dict['detection_classes'])
+
             
-            #if CREATE_VISUAL_IMAGE: 
-            #  draw = ImageDraw.Draw(image)
             draw = ""
             for i in range(instance_total):
                 class_id = output_dict['detection_classes'][i]

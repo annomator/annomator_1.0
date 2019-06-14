@@ -5,8 +5,6 @@ from __future__ import print_function
 
 print("Loading modules...")
 
-#from datetime import datetime as dt
-#start_time = dt.now()
 import time
 
 # Import first to prevent warning messages
@@ -14,21 +12,19 @@ import matplotlib; matplotlib.use('Agg')  # pylint: disable=multiple-statements
 
 import os # for os file paths
 
+# To prevent 'Out of memory' errors with GPU
 #os.environ["CUDA_VISIBLE_DEVICES"] = "-1" # To turn off GPU
 
 import numpy as np # for arrays and data manipulation
-#import six.moves.urllib as urllib # for downloading
-#import sys # for folder reference
-#import tarfile # for zip files
+
 import tensorflow as tf
-#import zipfile # for zip files
 
 from collections import defaultdict # text - storing
 from io import StringIO # text - translating
 from matplotlib import pyplot as plt # for image display
 from PIL import Image # for image import
 
-from matplotlib import patches as patches # for visual only - mask is all numpy
+from matplotlib import patches as patches # for visual only - mask is numpy
 
 import sys
 ANNO_REPO_DIR = os.path.join('..', 'anno_repo')
@@ -42,11 +38,10 @@ import tf_detections
 import png_masks
 from gen_functions import time_seconds_format as tsf
 
-
+# For more models
 # 'http://download.tensorflow.org/models/object_detection/'
 
 FROZEN_GRAPH = os.path.join(os.path.abspath('./'), 'frozen_graph', 'frozen_inference_graph.pb')
-
 
 TEST_IMAGES = os.path.join(os.path.abspath('./'), 'test_images')
 OUTPUT_DIR = os.path.join(os.path.abspath('./'), 'output_masks')
@@ -74,21 +69,21 @@ RESIZE_IMAGE_X = 512
 RESIZE_IMAGE_Y = RESIZE_IMAGE_X
 
 
-CREATE_VISUAL_IMAGE = True # From Tensorflow Object Detection
+CREATE_VISUAL_IMAGE = True
 VISUAL_BLEND = 0.5 # Mask visibility
 # Proportion option.  Overides visual min/max if >0. 
 VISUAL_RESIZE = 0.0 # >0.0 # 1 will return same size as original eg 0.5 = half size
 # or set max to reduce, min to enlarge or set min to max to for same size
 VISUAL_MAX = 10000 # pixels # Default 10000 (off bar huge) 1000 (on)
-VISUAL_MIN = VISUAL_MAX # pixels # Default 0 (off), number=enlarge or VISUAL_MAX
+VISUAL_MIN = 0 # pixels # Default 0 (off), number=enlarge or VISUAL_MAX
 
 
-# Export to another system
+# Export binaries for use in another system
 # Stay synchronized with mask and visual or export afterwards
 # Note: you can use the condensed masks directly for training
-# This will build binary pngs from compatible condensed masks, auto, human or both.
+# This will build binary pngs from compatible condensed masks.
 # Annotated by filename: image, instance id, category id, category name and category count
-# Searchable labels by score rank order with no external text or json needed. ("aza out" mike drop).  
+# Searchable labels by score rank order with no external text or json needed.
 CREATE_BINARY_IMAGES = False
 BINARY_IMAGES_DIR = os.path.join('.', 'binary_masks')
 
@@ -119,8 +114,7 @@ complete_count = 0
 # - Delete anything and re-run anytime.
 # - Fix the mask just delete the visual to remake with your changes.
 # - Delete the masks from one model, upgrade and rerun on difficult images
-# - Keep all the visuals up to date or batch binary export - All at speed
-# - image_dict is also used to attach every instance found for reporting/analysis/json
+
 image_count = 0
 image_dicts = []
 for test_image in test_images:
@@ -176,8 +170,6 @@ for test_image in test_images:
     image_dicts.append(image_dict)
 
 
-# Status report simple
-#print("Status: Images", image_count, "Masks", mask_count)
 # Status report string
 report_string = "Status: Images " + str(image_count)
 report_string += " Masks " + str(mask_count)
@@ -197,7 +189,6 @@ with detection_graph.as_default():
             if image_dict['image_complete']:
                 continue
             image_start = time.time()
-            #print("Processing", image_dict['image_name'])
             image = Image.open(image_dict['image_path'])
             
             if IMAGE_RESIZE:
@@ -209,13 +200,13 @@ with detection_graph.as_default():
                     resized_filename = os.path.basename(image_dict['image_path'])
                     image.save(os.path.join(OUTPUT_DIR, resized_filename))
             if image.size != cache_image_size:
-                #print("resetting tensor dict cache")
+                # Reset tensor dict cache
                 cache_image_size = image.size
                 tensor_dict_cache = {}
-            image_np = image_utils.numpy_from_image(image)#np.array(image).astype(np.uint8)
+            image_np = image_utils.numpy_from_image(image)
             if image_dict['mask_exists']:
                 mask = Image.open(image_dict['mask_path'])
-                mask_np = image_utils.numpy_from_image(mask)#np.array(mask).astype(np.uint8)
+                mask_np = image_utils.numpy_from_image(mask)
                 built_dict = png_masks.rebuild_from_mask(
                     mask_np, MASK_DECODE, CODEC_OFFSET, category_index)
             else:
@@ -228,8 +219,8 @@ with detection_graph.as_default():
                     image_np, output_dict,
                     MAX_OBJECTS, CONFIDENCE, MASK_ENCODE, CODEC_OFFSET)
                 # Safer handover and access to image and numpy
-                mask = image_utils.image_from_numpy(mask_np)#Image.fromarray(np.uint8(mask_np)).convert('RGB')
-                mask.save(image_dict['mask_path']) # not tf. but neater
+                mask = image_utils.image_from_numpy(mask_np)
+                mask.save(image_dict['mask_path'])
             # Now should have image, image_np, mask, mask_np and built_dict
             if CREATE_VISUAL_IMAGE:
                 image_utils.create_visual_from_built(

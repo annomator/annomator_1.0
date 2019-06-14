@@ -16,6 +16,7 @@ import numpy as np
 import os # binary folder only
 import image_utils # binary folder only
 
+
 ##################################################
 # Binary Codec - Files in folder of image name
 ##################################################
@@ -33,6 +34,7 @@ def encode_binary_filename(
     binary_filename += ".png"
     return binary_filename
 
+
 def decode_binary_filename_v1(binary_filename):
     # Naming convention for binary file encoding/decoding
     binary_mask_data = binary_filename.split('_')
@@ -44,6 +46,7 @@ def decode_binary_filename_v1(binary_filename):
     mask_ext = binary_mask_data[5]
     return category_id, category_count, instance_count
 
+
 def decode_binary_filename(binary_filename):
     binary_dict = create_binary_dict(binary_filename)
     category_id  = binary_dict['category_id']
@@ -51,22 +54,11 @@ def decode_binary_filename(binary_filename):
     instance_count = binary_dict['instance_count']
     return category_id, category_count, instance_count
 
-# def encode_binary_folder - UNTESTED - Use decode binary file
+
 def create_binary_dict(binary_filename):
-    # given a list (os.listdir) of binary filenames
-    # returns a list binary_dicts - built_dict['category_id'][i]
-    #total_masks = len(list_dir)
     binary_dict = {}
-    #binary_dicts = []
-    #image_names = []
-    #instance_counts = []
-    #category_ids = []
-    #category_names = []
-    #category_counts = []
-    #mask_exts = []
-    #for i in range(total_masks):
+
     binary_data = binary_filename.split('_')
-    #print(binary_data)
     image_name = binary_data[0]
     binary_dict['image_name'] = image_name
     instance_count = binary_data[1]
@@ -78,17 +70,15 @@ def create_binary_dict(binary_filename):
     split_ext = binary_data[4].split('.')
     category_count, mask_ext = split_ext[0], split_ext[1]
     binary_dict['category_count'] = category_count
-    #mask_ext = binary_data[5]
     binary_dict['mask_ext'] = mask_ext
-    #binary_dicts.append(binary_dict)
-    #print(binary_dict)
     
     return binary_dict
-    #return binary_dicts
+    
   
 ##################################################
 # Condensed Mask RGB 8-bit Codecs
 ##################################################
+
 
 # Codec - Offset - "offset"
 
@@ -98,6 +88,7 @@ def encode_offset(category_id, category_count, instance_count, offset):
     G = offset + category_count
     B = offset + instance_count
     return R, G, B
+
 def decode_offset(R, G, B, offset):
     category_id = R - offset
     category_count = G - offset
@@ -106,7 +97,6 @@ def decode_offset(R, G, B, offset):
 
 
 # Codec - Centric - "centric"
-
 
 def encode_centric(category_id, category_count, instance_count):
     # Designed for use with dense or complex datasets like mscoco panoptic data
@@ -174,7 +164,6 @@ def encode_decode_metric_100(R_cat, G_count, B_total):
 # "metric_offset", set to 100 offset, will have the same math result as "metric_100" string
 
 def single_encode_decode_metric(code_input):
-    # aka def ende_metric(code_input):
     # Encode and decode "metric_offset"
     code_output = (code_input //100) *100
     code_output += (code_input %10) *10
@@ -194,6 +183,7 @@ def decode_metric_offset(R, G, B, offset):
     return category_id, category_count, instance_count
 
 
+# Encode or decode any codec
 
 def codec(codec, encode_decode, R_cat, G_count, B_total, offset):
     # Encode or decode any codec - 2 strings, 4 integers
@@ -249,7 +239,6 @@ def create_mask_from_detection(
     image_np, output_dict,
     MAX_OBJECTS, CONFIDENCE, MASK_ENCODE, CODEC_OFFSET):
     # Create 8-bit rbg condensed png mask from tf detection
-    
     instance_total = len(output_dict['detection_masks'])
     instance_count = 0
     cat_count_list = [0] * 256 # (index=class_id)

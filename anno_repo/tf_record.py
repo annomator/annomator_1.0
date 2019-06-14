@@ -151,7 +151,6 @@ def create_tf_example_for_boxes_score(
     # Image name used as image id
     image_filename = os.path.basename(image_path)
     image_name, _ = os.path.splitext(image_filename)
-    #old image_id = image_name 
     filename = image_filename
     
     # Encode image
@@ -170,8 +169,8 @@ def create_tf_example_for_boxes_score(
     scores = []
     
     cat_count_list_image = [0] * (max(category_index.keys()) +1)
-    
     total_annos = len(boxes_dict['cat_ids'])
+    
     # check
     for i in range(total_annos):
         cat_id = boxes_dict['cat_ids'][i]
@@ -187,7 +186,6 @@ def create_tf_example_for_boxes_score(
                 continue
 
         scores.append(score)
-        
         cat_count_list_image[cat_id] +=1
         
         if translation_index == {}:
@@ -290,7 +288,6 @@ def create_tf_record_from_json_panoptic(
             continue
         
         for a in anno:
-            #print(a)
             if a['category_id'] > 90:
                 # skip if not coco 'things'
                 continue
@@ -364,7 +361,7 @@ def create_tf_record_from_json_annotate(
     output_path):
     # Finds masks for a list of images
     # Note category index will use pbtxt but also included in json
-    # Scores used.  No area information included
+    # Scores used.  No area information included.
     
     print('Writing', os.path.basename(output_path))
     images_start = time.time()
@@ -700,7 +697,6 @@ def create_tf_record_from_png_masks(
         image_name, image_ext = os.path.splitext(image)
         if image_ext != ".jpg":
             # can store png masks and png visuals ('all-in-one') with simple skip
-            # - or add ext ".png", add io and screen potential _visual and _mask
             continue # only setup for jpg images, all masks are png
         
         image_path = os.path.join(IMAGES_DIR, image)
@@ -791,7 +787,6 @@ def create_tf_record_from_png_masks_for_boxes(
         image_name, image_ext = os.path.splitext(image)
         if image_ext != ".jpg":
             # can store png masks and png visuals ('all-in-one') with simple skip
-            # - or add ext ".png", add io and screen potential _visual and _mask
             continue # only setup for jpg images, all masks are png
         
         image_path = os.path.join(IMAGES_DIR, image)

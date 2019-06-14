@@ -3,6 +3,8 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+print("Loading modules...")
+
 import time
 start_time = time.time()
 
@@ -11,22 +13,17 @@ import matplotlib; matplotlib.use('Agg')  # pylint: disable=multiple-statements
 
 import numpy as np # for arrays and data manipulation
 import os # for os safe file paths
-#import six.moves.urllib as urllib # for downloading
 
-#import tarfile # for zip files
 import tensorflow as tf
-#import zipfile # for zip files
 
 from collections import defaultdict # text - storing
 from io import StringIO #  translating
 from matplotlib import pyplot as plt # image display
 from PIL import Image # for image import
 import PIL.ImageDraw as ImageDraw # for quick box visual
-# import PIL.ImageFont as ImageFont # not used as needs local fonts
 
 import sys # for folder reference
 sys.path.append(os.path.join('..', 'anno_repo'))
-#sys.path.append(os.path.join('../', 'tf_slim_obj_det'))
 
 import json
 
@@ -37,18 +34,21 @@ import gen_functions
 tsf = gen_functions.time_seconds_format
 import image_utils
 
+# For more models
+# 'http://download.tensorflow.org/models/object_detection/'
+
 FROZEN_GRAPH = os.path.join(os.path.abspath('.'), 'frozen_graph', 'frozen_inference_graph.pb')
-#FROZEN_GRAPH = os.path.join('../', 'tf_slim_obj_det', 'object_detection', 'test_ckpt', 'ssd_inception_v2.pb')
+
 # Format for linux, windows and mac safe paths
 TEST_IMAGES = os.path.join(os.path.abspath('.'), 'test_images')
 OUTPUT_DIR = os.path.join(os.path.abspath('.'), 'ouput_boxes')
 
 JSON_SUMMARY = os.path.join(".", "test_images_summary.json") 
-JSON_IMAGE_EXT = "_img" # "image filename" JSON_IMAGE_EXT ".json"
+JSON_IMAGE_EXT = "_img"
 
 # Note for large datasets or limited space - visuals will be about same size as images
-CREATE_VISUAL_IMAGE = True # only available on detection in this version
-VISUAL_FORMAT = "image" # "image", ".png", ".jpg", ".pdf"
+CREATE_VISUAL_IMAGE = True 
+VISUAL_FORMAT = "image" # options: "image", ".png", ".jpg", ".pdf"
 # Display results of detection to screen
 DISPLAY_TO_SCREEN = False
 
@@ -111,8 +111,6 @@ with detection_graph.as_default():
             instance_total = len(output_dict['detection_classes'])
             
             # Visual
-            #if CREATE_VISUAL_IMAGE: 
-            #    draw = ImageDraw.Draw(image)
             draw = ""
             for i in range(instance_total):
                 class_id = output_dict['detection_classes'][i]
@@ -156,7 +154,7 @@ with detection_graph.as_default():
                     visual_file = image_name + "_visual" + VISUAL_FORMAT 
                 image.save(os.path.join(OUTPUT_DIR, visual_file))
 
-            # Display detections of each image to screen
+            # If display to screen, display detections of each image
             plt.close('all')
             if DISPLAY_TO_SCREEN:
                 print(json_image)
