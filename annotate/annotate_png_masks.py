@@ -84,7 +84,7 @@ VISUAL_BLEND = 0.5 # Mask visibility
 VISUAL_RESIZE = 0.0 # >0.0 # 1 will return same size as original eg 0.5 = half size
 # or set max to reduce, min to enlarge or set min to max to for same size
 VISUAL_MAX = 10000 # pixels # Default 10000 (off bar huge) 1000 (on)
-VISUAL_MIN = 0 # pixels # Default 0 (off), number=enlarge or VISUAL_MAX
+VISUAL_MIN = 100 # pixels # Default 100, number=enlarge or VISUAL_MAX
 
 
 # Export binaries for use in another system
