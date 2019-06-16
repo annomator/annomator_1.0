@@ -1,12 +1,3 @@
-# Copyright 2019 Annomator Written by Arend Smits
-# Copyright 2019 The TensorFlow Authors. All Rights Reserved.
-# Licensed under the Apache License, Version 2.0 (the "License")
-# you may not use this file except in compliance with the License. You may obtain a copy of the License at
-# http://www.apache.org/licenses/LICENSE-2.0
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
-# either express or implied. See the License for the specific language governing permissions and limitations under the License.
-
 # Python 2.7
 from __future__ import absolute_import
 from __future__ import division
@@ -127,6 +118,8 @@ with detection_graph.as_default():
                     class_name = category_index[class_id]['name']
                 else:
                     class_name = "NO ID"
+                    # Skip if not in category index
+                    continue
                 score = output_dict['detection_scores'][i]
                 box = output_dict['detection_boxes'][i]
                 if instance_count > MAX_OBJECTS:

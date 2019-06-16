@@ -1,12 +1,11 @@
-# Copyright 2019 Annomator Written by Arend Smits
-# Copyright 2019 The TensorFlow Authors. All Rights Reserved.
+# Copyright 2018 Annomator Written by Arend Smits
+# Copyright 2018 The TensorFlow Authors. All Rights Reserved.
 # Licensed under the Apache License, Version 2.0 (the "License")
 # you may not use this file except in compliance with the License. You may obtain a copy of the License at
 # http://www.apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
 # either express or implied. See the License for the specific language governing permissions and limitations under the License.
-
 # Python 2.7
 from __future__ import absolute_import
 from __future__ import division
@@ -237,7 +236,7 @@ def codec(codec, encode_decode, R_cat, G_count, B_total, offset):
 
 
 def create_mask_from_detection(
-    image_np, output_dict,
+    image_np, output_dict, category_index, 
     MAX_OBJECTS, CONFIDENCE, MASK_ENCODE, CODEC_OFFSET):
     # Create 8-bit rbg condensed png mask from tf detection
     instance_total = len(output_dict['detection_masks'])
@@ -254,9 +253,12 @@ def create_mask_from_detection(
             break
         if output_dict['detection_scores'][i] < CONFIDENCE:
             continue
-
-        instance_count +=1
         class_id = int(output_dict['detection_classes'][i])
+        if class_id not in category_index:
+            # Skip if class_id not in category_index
+            # ie limit mask and visual to category index only
+            continue
+        instance_count +=1
         classes.append(class_id)
         cat_count_list[class_id] +=1
         category_count = cat_count_list[class_id]
