@@ -4,19 +4,19 @@
 ### Quick Install - Terminal
 Download annomator from github https://github.com/annomator  
 Use the setup folder and enter the following in a terminal  
-pip install -r annotator_requirements.txt  
+pip install -r annomator_requirements.txt  
 or for GPU  
-pip install -r annotator_requirements_gpu.txt  
+pip install -r annomator_requirements_gpu.txt  
 
 
 ### Install
-It is recommended to use Python 3.6.6  
+It is recommended to use Python 3.6.9  
 Works with Python 2.7 and 3.3-3.6 (Not 3.7)
 
 It is recommended to use virtualenv  
 Works as system/native, conda, virtualenv or pipenv
 
-It is recommended to use Tensorflow 1.5.0.  Works with 1.5.0 - 1.10 (Not 1.11)  
+It is recommended to use Tensorflow 1.5.0.  Works with 1.5.0 - 1.14 (Not 2.0)  
 Works with TF Object Detection 1.0 BEFORE September 2018.  You simply need to move the train.py out of the legacy folder with later releases.
 
 Download Python 3.6 and update to pip 18  
